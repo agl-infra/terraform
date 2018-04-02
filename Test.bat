@@ -1,1 +1,2 @@
 winrm quickconfig -q
+dir
