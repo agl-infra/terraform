@@ -16,7 +16,7 @@ data "azurerm_resource_group" "rg" {
 ## Security Group
 
 resource "azurerm_network_security_group" "securitygroup" {
-  name                = "sg-${var.vm_name}"
+  name                = "SG-${var.vm_name}"
   location            = "${data.azurerm_resource_group.rg.location}"
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
 tags {
@@ -55,7 +55,7 @@ data "azurerm_subnet" "subnet" {
 ## Public IP
 
 resource "azurerm_public_ip" "eip" {
-  name                         = "ip-${var.vm_name}"
+  name                         = "IP-${var.vm_name}"
   location                     = "${data.azurerm_resource_group.rg.location}"
   resource_group_name          = "${data.azurerm_resource_group.rg.name}"
   public_ip_address_allocation = "static"
@@ -69,7 +69,7 @@ resource "azurerm_public_ip" "eip" {
 ## Network Interface
 
 resource "azurerm_network_interface" "networkinterface" {
-  name                = "ni-${var.vm_name}"
+  name                = "NI-${var.vm_name}"
   location            = "${data.azurerm_resource_group.rg.location}"
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
   network_security_group_id = "${azurerm_network_security_group.securitygroup.id}"
@@ -89,7 +89,7 @@ resource "azurerm_network_interface" "networkinterface" {
 ## Managed Disk
 
 resource "azurerm_managed_disk" "disk" {
-  name                 = "md-${var.vm_name}"
+  name                 = "MD-${var.vm_name}"
   location             = "${data.azurerm_resource_group.rg.location}"
   resource_group_name  = "${data.azurerm_resource_group.rg.name}"
   storage_account_type = "Standard_LRS"
@@ -105,7 +105,7 @@ tags {
 ## Linux VM
 
 resource "azurerm_virtual_machine" "vm" {
-  name                  = "vm-${var.vm_name}"
+  name                  = "VM-${var.vm_name}"
   location              = "${data.azurerm_resource_group.rg.location}"
   resource_group_name   = "${data.azurerm_resource_group.rg.name}"
   network_interface_ids = ["${azurerm_network_interface.networkinterface.id}"]
@@ -123,7 +123,7 @@ resource "azurerm_virtual_machine" "vm" {
   }
 
   storage_os_disk {
-    name              = "od-${var.vm_name}"
+    name              = "OD-${var.vm_name}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
